@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Triangulation\Triangulation.csproj" />
+    <ProjectReference Include="..\ConvexHull\ConvexHull.csproj" />
   </ItemGroup>
 
   <ItemGroup>
