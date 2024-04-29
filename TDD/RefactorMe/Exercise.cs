@@ -19,20 +19,33 @@ namespace RefactorMe
         /// <returns></returns>
         public static int[] ParseResponseSingleLine(string response)
         {
-            var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
+            Dictionary<string, object> result = JsonConvert.DeserializeObject<Dictionary<string, object>>(elevationResponse);
 
-            if (result == null)
-                return null;
+if (result.ContainsKey("statusCode") && (int)result["statusCode"] != 200)
+    throw new WebException(result["statusDescription"].ToString());
 
-            if (result.ContainsKey("statusCode") && (long)result["statusCode"] != 200)
-                throw new WebException(result["statusDescription"].ToString());
+object[] resourceSets = result["resourceSets"] as object[];
+if (resourceSets != null && resourceSets.Length > 0)
+{
+    if (resourceSets[0] is Dictionary<string, object> && (resourceSets[0] as Dictionary<string, object>).ContainsKey("resources"))
+    {
+        object[] resources = (resourceSets[0] as Dictionary<string, object>)["resources"] as object[];
+        if (resources != null && resources.Length > 0)
+        {
+            if (resources[0] is Dictionary<string, object> && (resources[0] as Dictionary<string, object>).ContainsKey("elevations"))
+            {
+                object[] elevations = (resources[0] as Dictionary<string, object>)["elevations"] as object[];
+                if (elevations != null && elevations.Length > 0)
+                {
+                    int[] elevationsArray = elevations.Select(x => (int)x).ToArray();
+                    return elevationsArray;
+                }
+            }
+        }
+    }
+}
 
-            if (!(result["resourceSets"] is JArray) || ((JArray)result["resourceSets"]).Count == 0)
-                return null;
-            var resourceSets = (JArray)result["resourceSets"];
-
-            var targetData = resourceSets[0]["resources"]?[0]?["targetData"]?.Select(x => (int)x).ToArray();
-            return targetData;
+return null;
         }
     }
 }
