@@ -19,29 +19,25 @@ namespace RefactorMe
         /// <returns></returns>
         public static int[] ParseResponseSingleLine(string elevationResponse)
         {
-            Dictionary<string, object> result = JsonConvert.DeserializeObject<Dictionary<string, object>>(elevationResponse);
+            var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(elevationResponse);
 
-            if (result.ContainsKey("statusCode") && (int)result["statusCode"] != 200)
+            if (result == null)
+                return null;
+
+            if (result.ContainsKey("statusCode") && (long)result["statusCode"] != 200)
                 throw new WebException(result["statusDescription"].ToString());
 
-            object[] resourceSets = result["resourceSets"] as object[];
-            if (resourceSets != null && resourceSets.Length > 0)
+            if (!(result["resourceSets"] is JArray) || ((JArray)result["resourceSets"]).Count == 0)
+                return null;
+
+            var resourceSets = (JArray)result["resourceSets"];
+            if (resourceSets[0]["resources"]?[0] != null)
             {
-                if (resourceSets[0] is Dictionary<string, object> && (resourceSets[0] as Dictionary<string, object>).ContainsKey("resources"))
+                var resources = resourceSets[0]["resources"][0];
+                if (resources["elevations"] != null)
                 {
-                    object[] resources = (resourceSets[0] as Dictionary<string, object>)["resources"] as object[];
-                    if (resources != null && resources.Length > 0)
-                    {
-                        if (resources[0] is Dictionary<string, object> && (resources[0] as Dictionary<string, object>).ContainsKey("elevations"))
-                        {
-                            object[] elevations = (resources[0] as Dictionary<string, object>)["elevations"] as object[];
-                            if (elevations != null && elevations.Length > 0)
-                            {
-                                int[] elevationsArray = elevations.Select(x => (int)x).ToArray();
-                                return elevationsArray;
-                            }
-                        }
-                    }
+                    var elevations = resources["elevations"].Select(x => (int)x).ToArray();
+                    return elevations;
                 }
             }
 
