@@ -17,7 +17,7 @@ namespace RefactorMe
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        public static int[] ParseResponseSingleLine(string response)
+        public static int[] ParseResponseSingleLine(string elevationResponse)
         {
             Dictionary<string, object> result = JsonConvert.DeserializeObject<Dictionary<string, object>>(elevationResponse);
 
