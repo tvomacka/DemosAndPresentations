@@ -1,52 +1,14 @@
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace RefactorMe
 {
-    public class Exercise
-    {
-        /*
-         * 1. Zkuste odhadnout, co metoda ParseResponseSingleLine dělá.
-         * 2. Použijte ReSharper opakovaně na metodu ParseResponseSingleLine, dokud sám neoznačí metodu za "hotovou".
-         * 3. Porovnejte výsledný kód metody s původním kódem. Jak se liší, co pro vás tento výsledek představuje?
-         */
-
-        /// <summary>
-        /// Parses the information obtained from server from json format to array.
-        /// </summary>
-        /// <param name="response"></param>
-        /// <returns></returns>
-        public static int[] ParseResponseSingleLine(string elevationResponse)
-        {
-            var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(elevationResponse);
-
-            if (result == null)
-                return null;
-
-            if (result.ContainsKey("statusCode") && (long)result["statusCode"] != 200)
-                throw new WebException(result["statusDescription"].ToString());
-
-            if (!(result["resourceSets"] is JArray) || ((JArray)result["resourceSets"]).Count == 0)
-                return null;
-
-            var resourceSets = (JArray)result["resourceSets"];
-            if (resourceSets[0]["resources"]?[0] != null)
-            {
-                var resources = resourceSets[0]["resources"][0];
-                if (resources["elevations"] != null)
-                {
-                    var elevations = resources["elevations"].Select(x => (int)x).ToArray();
-                    return elevations;
-                }
-            }
-
-            return null;
-        }
-
-        /*
+    internal class Exercise2
+    {/* Cviceni 2
          * 1. Zkuste odhadnout co dela metoda UpdateZoomAndPan
          * 2. Jake code smells vidite?
          * 3. Odstrante je pomoci ReSharperu.
@@ -148,7 +110,7 @@ namespace RefactorMe
             TileCoordinate refTile = new TileCoordinate(
                 (Math.Round(tilesNum * 0.5 - (rootSize.Width * scFactor.Width * xamlViewerZoom * 0.5 - offset.X) / tileSize.Width) % tilesNum + tilesNum) % tilesNum,
                 Math.Round(tilesNum * 0.5 - (rootSize.Height * scFactor.Height * xamlViewerZoom * 0.5 - offset.Y) / tileSize.Height));
-            
+
             #endregion
 
             #region Updating the individual layers
