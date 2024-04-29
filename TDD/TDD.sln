@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConvexHull.Test", "ConvexHu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefactorMe", "RefactorMe\RefactorMe.csproj", "{7A460698-F269-427A-8DA8-9CA40A91C5BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefactorMe.Test", "RefactorMe.Test\RefactorMe.Test.csproj", "{8561560A-BE8E-4BF8-AD9B-929EC2BC5617}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7A460698-F269-427A-8DA8-9CA40A91C5BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A460698-F269-427A-8DA8-9CA40A91C5BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A460698-F269-427A-8DA8-9CA40A91C5BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8561560A-BE8E-4BF8-AD9B-929EC2BC5617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8561560A-BE8E-4BF8-AD9B-929EC2BC5617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8561560A-BE8E-4BF8-AD9B-929EC2BC5617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8561560A-BE8E-4BF8-AD9B-929EC2BC5617}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
