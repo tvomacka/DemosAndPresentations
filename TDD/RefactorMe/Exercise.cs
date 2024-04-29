@@ -1,3 +1,7 @@
+using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace RefactorMe
 {
     public class Exercise
