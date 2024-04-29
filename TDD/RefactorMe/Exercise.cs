@@ -21,31 +21,31 @@ namespace RefactorMe
         {
             Dictionary<string, object> result = JsonConvert.DeserializeObject<Dictionary<string, object>>(elevationResponse);
 
-if (result.ContainsKey("statusCode") && (int)result["statusCode"] != 200)
-    throw new WebException(result["statusDescription"].ToString());
+            if (result.ContainsKey("statusCode") && (int)result["statusCode"] != 200)
+                throw new WebException(result["statusDescription"].ToString());
 
-object[] resourceSets = result["resourceSets"] as object[];
-if (resourceSets != null && resourceSets.Length > 0)
-{
-    if (resourceSets[0] is Dictionary<string, object> && (resourceSets[0] as Dictionary<string, object>).ContainsKey("resources"))
-    {
-        object[] resources = (resourceSets[0] as Dictionary<string, object>)["resources"] as object[];
-        if (resources != null && resources.Length > 0)
-        {
-            if (resources[0] is Dictionary<string, object> && (resources[0] as Dictionary<string, object>).ContainsKey("elevations"))
+            object[] resourceSets = result["resourceSets"] as object[];
+            if (resourceSets != null && resourceSets.Length > 0)
             {
-                object[] elevations = (resources[0] as Dictionary<string, object>)["elevations"] as object[];
-                if (elevations != null && elevations.Length > 0)
+                if (resourceSets[0] is Dictionary<string, object> && (resourceSets[0] as Dictionary<string, object>).ContainsKey("resources"))
                 {
-                    int[] elevationsArray = elevations.Select(x => (int)x).ToArray();
-                    return elevationsArray;
+                    object[] resources = (resourceSets[0] as Dictionary<string, object>)["resources"] as object[];
+                    if (resources != null && resources.Length > 0)
+                    {
+                        if (resources[0] is Dictionary<string, object> && (resources[0] as Dictionary<string, object>).ContainsKey("elevations"))
+                        {
+                            object[] elevations = (resources[0] as Dictionary<string, object>)["elevations"] as object[];
+                            if (elevations != null && elevations.Length > 0)
+                            {
+                                int[] elevationsArray = elevations.Select(x => (int)x).ToArray();
+                                return elevationsArray;
+                            }
+                        }
+                    }
                 }
             }
-        }
-    }
-}
 
-return null;
+            return null;
         }
     }
 }
