@@ -32,18 +32,8 @@ namespace RefactorMe
             if (!(result["resourceSets"] is JArray) || ((JArray)result["resourceSets"]).Count == 0)
                 return null;
 
-            var resourceSets = (JArray)result["resourceSets"];
-            if (resourceSets[0]["resources"]?[0] != null)
-            {
-                var resources = resourceSets[0]["resources"][0];
-                if (resources["elevations"] != null)
-                {
-                    var elevations = resources["elevations"].Select(x => (int)x).ToArray();
-                    return elevations;
-                }
-            }
+            return ((JArray)result["resourceSets"])[0]["resources"]?[0]?["elevations"]?.Select(x => (int)x).ToArray();
 
-            return null;
         }
 
     }
