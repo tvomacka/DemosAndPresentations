@@ -19,8 +19,6 @@ namespace RefactorMe
         /// <summary>
         /// Parses the information obtained from server from json format to array.
         /// </summary>
-        /// <param name="response"></param>
-        /// <returns></returns>
         public static int[] ParseResponseSingleLine(string elevationResponse)
         {
             var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(elevationResponse);
