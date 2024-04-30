@@ -7,8 +7,16 @@
          *
          * 1. Vyzkoumejte, co je ucelem metod Applesauce a Applesauce2.
          * 2. Pokryjte 100 % metod jednotkovymi testy.
-         * 3. Provedte refactoring metod tak, aby vyuzivala nejaky jiny algoritmus k dosazeni tehoz cile.
+         * 3. Provedte refactoring metod tak, aby byly funkcionalni a odstrante code smells.
          */
+
+        public static void EntryPoint()
+        {
+            var a = new int[] { 1, 2, 3, 4, 5 };
+            Applesauce2(a);
+
+            Console.WriteLine(string.Join(", ", a));
+        }
 
         public static void Applesauce(int[] aaa, int[] a, int[] b)
         {
@@ -64,7 +72,7 @@
 
         #region Hint
 
-        https://www.itnetwork.cz/algoritmy/razeni/algoritmus-merge-sort-trideni-cisel-podle-velikosti
+        // https://www.itnetwork.cz/algoritmy/razeni/algoritmus-merge-sort-trideni-cisel-podle-velikosti
 
         #endregion
     }
